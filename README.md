@@ -95,7 +95,7 @@ php supplier1.php &> /dev/null &
 
 Create a service in ubuntu
 -------------------------------------------------
-Create a file [php-daemon.conf](../samples/php-daemon.conf) in /etc/init
+Create a file [php-daemon.conf](../blob/master/samples/php-daemon.conf) in /etc/init
 
 ```
 # Info
