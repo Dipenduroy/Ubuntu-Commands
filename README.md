@@ -81,8 +81,8 @@ To restart stopped process use foreground command
 -------------------------------------------------
 To start again a specific job use fg with jobspec number.
 
-Syntax : 
 fg 1
+
 fg 2
 
 To start a background process
@@ -93,3 +93,32 @@ OR(Both similar)
 
 php supplier1.php &> /dev/null &
 
+Create a service in ubuntu
+-------------------------------------------------
+Create a file php-daemon.conf in /etc/init
+
+```
+# Info
+description "PHP Daemon Worker"
+author      "Dipendu"
+
+# Events
+start on startup
+stop on shutdown
+
+# Automatically respawn
+respawn
+respawn limit 20 5
+
+# Run the script!
+# Note, in this example, if your PHP script returns
+# the string "ERROR", the daemon will stop itself.
+script
+    [ $(exec /usr/bin/php5.6 -d "default_socket_timeout=-1" -f /usr/share/nginx/html/sample/supplier1.php) = 'ERROR' ] && ( stop; exit 1; )
+end script
+```
+
+Start/Stop a service:
+
+sudo service php-daemon start
+sudo service php-daemon stop
