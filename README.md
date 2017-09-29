@@ -95,7 +95,7 @@ php supplier1.php &> /dev/null &
 
 Create a service in ubuntu
 -------------------------------------------------
-Create a file [php-daemon.conf](../blob/master/samples/php-daemon.conf) in /etc/init
+Create a file [php-daemon.conf](../master/samples/php-daemon.conf) in /etc/init
 
 ```
 # Info
@@ -121,4 +121,11 @@ end script
 Start/Stop a service:
 
 sudo service php-daemon start
+
 sudo service php-daemon stop
+
+Setup a service
+-------------------------------------------------
+Reference: https://blog.frd.mn/how-to-set-up-proper-startstop-services-ubuntu-debian-mac-windows/
+
+Create a file [worker-daemon](../master/samples/worker-daemon) in /etc/init.d
