@@ -46,7 +46,8 @@ stop() {
     sleep 0.5
   done 
   [ -z `cat /var/run/$NAME.pid 2>/dev/null` ] || rm /var/run/$NAME.pid
-  sudo killall -9 php 	
+  printf "Custom Killing generated process '$NAME'... "  
+  sudo ps auxww | grep 'index.php webservice parallelxmlprocess' | awk '{print $2}' | xargs kill 
   printf "done\n"
 }
 #Below kills all php process
