@@ -129,3 +129,20 @@ Setup a service
 Reference: https://blog.frd.mn/how-to-set-up-proper-startstop-services-ubuntu-debian-mac-windows/
 
 Create a file [worker-daemon](../master/samples/worker-daemon) in /etc/init.d
+
+
+Linux command to check disk space
+-------------------------------------------------
+df -h command - Shows the amount of disk space used and available on Linux file systems.
+
+du -h command - Display the amount of disk space used by the specified files and for each subdirectory.
+
+btrfs fi df /device/ - Show disk space usage information for a btrfs based mount point/file system.
+
+Add -h to get in usage in human readable format
+
+Validate XML using xmllint
+-------------------------------------------------
+xmllint '/home/dhruvin/Desktop/response2.xml'; echo $? 
+
+Prints 0 at the last if xml is valid
