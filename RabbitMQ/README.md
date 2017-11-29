@@ -1,4 +1,27 @@
 # Learn RabbitMQ
+
+Install RabbitMQ
+
+Installation
+-------------------------------------------------
+1) Install synaptic Package Manager for Ubutu software
+
+2) Install RabbitMQ-Server
+
+3) sudo service rabbitmq-server start
+
+4) sudo rabbitmq-plugins enable rabbitmq_management
+
+5) Credential details for UI:
+
+RabbitMQ Management Plugin Link: http://localhost:15672/
+username: guest
+password: guest
+
+6) For installing https://github.com/php-amqplib/php-amqplib
+
+Check php.info file for mbstring and bcmath extentions is available,if not install it
+
 Useful Configuration for RabbitMQ
 
 Setup Worker Daemon service on server startup
@@ -78,5 +101,52 @@ Command:
 
 ```
 sudo rabbitmqctl set_vm_memory_high_watermark 0.5
+```
+
+Modify php-amqplib code to handle AMQP Client Exception:
+-------------------------------------------------
+Change below code in getReplies function of 
+
+/vendor/php-amqplib/thumper/lib/Thumper/RpcClient.php
+
+Old Function getReplies:
+
+```
+$this->channel->wait(null, false, $this->requestTimeout);
+```
+
+New Function getReplies:
+
+```
+try{
+                $this->channel
+                ->wait(null, false, $this->requestTimeout);
+            }catch(\PhpAmqpLib\Exception\AMQPTimeoutException $e){                
+                $this->channel
+                    ->basic_cancel($this->queueName);
+                return $this->replies;
+            }
+```
+
+Modify php-amqplib code to Change Message content type to application json
+--------------------------------------------------------------------------------------------------
+Old Code:
+
+/vendor/php-amqplib/thumper/lib/Thumper/BaseAmqp.php
+
+Old Code:
+
+```
+protected $parameters = array(
+        'content_type' => 'text/plain'
+    );
+```
+
+New Code:
+
+```
+protected $parameters = array(
+        'content_type' => 'application/json'
+    );
 ```
 
